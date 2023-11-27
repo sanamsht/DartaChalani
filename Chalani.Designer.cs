@@ -76,6 +76,7 @@ namespace DartaChalani
             this.btnChaSearch.Text = "Search";
             this.btnChaSearch.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnChaSearch.UseVisualStyleBackColor = true;
+            this.btnChaSearch.Click += new System.EventHandler(this.btnChaSearch_Click);
             // 
             // tbChaSearch
             // 
@@ -83,6 +84,7 @@ namespace DartaChalani
             this.tbChaSearch.Name = "tbChaSearch";
             this.tbChaSearch.Size = new System.Drawing.Size(307, 20);
             this.tbChaSearch.TabIndex = 3;
+            this.tbChaSearch.TextChanged += new System.EventHandler(this.tbChaSearch_TextChanged);
             // 
             // btnChaHome
             // 

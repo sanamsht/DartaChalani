@@ -78,6 +78,8 @@ namespace DartaChalani
         {
             AllMethods am = new AllMethods();
             am.LoadChalaniGrid(dgvChalani);
+            btn.UseColumnTextForButtonValue = true;
+            btn.Text = "View";
 
             //SqlCommand cmd = new SqlCommand("select ChalaniNo,ChalaniDate, FiscalYear,ReferenceNo,PatraDate, Subject, OfficeName, Bodhartha, Remarks from tblChalani", con);
 
@@ -105,37 +107,64 @@ namespace DartaChalani
         DartaChalaniDBEntities1 _db = new DartaChalaniDBEntities1();
         private void dgvViewBtnClick(object sender, DataGridViewCellMouseEventArgs e)
         {
+
+
+            chalNo = Convert.ToInt32(dgvChalani.CurrentRow.Cells[1].Value);
+            try {
+                tblChalani tb = _db.tblChalanis.Where(s => s.ChalaniNo == chalNo).FirstOrDefault();
+                AddNewChalani anc = new AddNewChalani(this);
+                anc.Show();
+                anc.tbChanaliNo.Text = dgvChalani.CurrentRow.Cells[1].Value.ToString();
+                anc.tbChanaliNo.Enabled = false;
+                anc.DPChalani.Text = dgvChalani.CurrentRow.Cells[2].Value.ToString();
+                anc.DPChalani.Enabled = false;
+                anc.cbFiscalYear.SelectedItem = dgvChalani.CurrentRow.Cells[3].Value.ToString();
+                anc.cbFiscalYear.Enabled = false;
+                anc.tbReference.Text = dgvChalani.CurrentRow.Cells[4].Value.ToString();
+                anc.tbReference.Enabled = false;
+                anc.DPPatra.Text = dgvChalani.CurrentRow.Cells[5].Value.ToString();
+                anc.DPPatra.Enabled = false;
+                anc.tbSubject.Text = dgvChalani.CurrentRow.Cells[6].Value.ToString();
+                anc.tbSubject.Enabled = false;
+                anc.tbOffice.Text = dgvChalani.CurrentRow.Cells[7].Value.ToString();
+                anc.tbOffice.Enabled = false;
+                anc.tbCC.Text = dgvChalani.CurrentRow.Cells[8].Value.ToString();
+                anc.tbCC.Enabled = false;
+                anc.button1.Enabled = false;
+                anc.llFilename.Text = tb.File;
+
+                anc.tbRemarks.Text = dgvChalani.CurrentRow.Cells[9].Value.ToString();
+                anc.tbRemarks.Enabled = false;
+
+
+                anc.btnTDAdd.Text = "Edit";
+            }catch(Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
             
             
-            chalNo = Convert.ToInt32( dgvChalani.CurrentRow.Cells[1].Value);
+            }
 
-            tblChalani tb = _db.tblChalanis.Where(s=>s.ChalaniNo == chalNo).FirstOrDefault();
-            AddNewChalani anc = new AddNewChalani(this);
-            anc.Show();
-            anc.tbChanaliNo.Text = dgvChalani.CurrentRow.Cells[1].Value.ToString();
-            anc.tbChanaliNo.Enabled = false;
-            anc.DPChalani.Text = dgvChalani.CurrentRow.Cells[2].Value.ToString();
-            anc.DPChalani.Enabled = false;
-            anc.cbFiscalYear.SelectedItem = dgvChalani.CurrentRow.Cells[3].Value.ToString();
-            anc.cbFiscalYear.Enabled = false;
-            anc.tbReference.Text = dgvChalani.CurrentRow.Cells[4].Value.ToString();
-            anc.tbReference.Enabled = false;
-            anc.DPPatra.Text = dgvChalani.CurrentRow.Cells[5].Value.ToString();
-            anc.DPPatra.Enabled = false;
-            anc.tbSubject.Text = dgvChalani.CurrentRow.Cells[6].Value.ToString();
-            anc.tbSubject.Enabled = false;
-            anc.tbOffice.Text = dgvChalani.CurrentRow.Cells[7].Value.ToString();
-            anc.tbOffice.Enabled = false;
-            anc.tbCC.Text = dgvChalani.CurrentRow.Cells[8].Value.ToString();
-            anc.tbCC.Enabled = false;
-            anc.button1.Enabled = false;
-            anc.llFilename.Text = tb.File;
-         
-            anc.tbRemarks.Text = dgvChalani.CurrentRow.Cells[9].Value.ToString();
-            anc.tbRemarks.Enabled = false;
+        private void tbChaSearch_TextChanged(object sender, EventArgs e)
+        {
 
 
-            anc.btnTDAdd.Text = "Edit";
+            if (tbChaSearch.Text != "")
+            {
+                
+                List<tblChalani> lst = _db.tblChalanis.Where(x =>  x.ChalaniDate.Contains(tbChaSearch.Text) || x.Subject.Contains(tbChaSearch.Text) || x.OfficeName.Contains(tbChaSearch.Text) || x.Bodhartha.Contains(tbChaSearch.Text) || x.Remarks.Contains(tbChaSearch.Text)).ToList();
+                dgvChalani.DataSource = lst;
+            }
+            else
+            {
+                LoadGrid();
+            }
+        }
+        int chaNo = 0;
+        private void btnChaSearch_Click(object sender, EventArgs e)
+        {
+           
         }
     }
 }

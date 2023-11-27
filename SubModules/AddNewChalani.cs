@@ -78,10 +78,10 @@ namespace DartaChalani.SubModules
             {
                 _id = Convert.ToInt32(tbChanaliNo.Text);    
                 tblChalani tb = _db.tblChalanis.Where(s => s.ChalaniNo == _id).FirstOrDefault();
-                tb.ChalaniDate = Convert.ToDateTime( DPChalani.Text);
+                tb.ChalaniDate =    DPChalani.Text;
                 tb.FiscalYear = cbFiscalYear.SelectedItem.ToString();
                 tb.ReferenceNo = tbReference.Text;
-                tb.PatraDate = Convert.ToDateTime(DPPatra.Text).ToString();
+                tb.PatraDate = DPPatra.Text;
                 tb.Subject=tbSubject.Text;
                 tb.OfficeName = tbOffice.Text;  
                 tb.Bodhartha=tbCC.Text; 
@@ -91,7 +91,7 @@ namespace DartaChalani.SubModules
                 this.Hide();
                
                 _chalani.LoadGrid();
-
+                
 
             }
             

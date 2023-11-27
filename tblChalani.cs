@@ -15,7 +15,7 @@ namespace DartaChalani
     public partial class tblChalani
     {
         public int ChalaniNo { get; set; }
-        public Nullable<System.DateTime> ChalaniDate { get; set; }
+        public string ChalaniDate { get; set; }
         public string FiscalYear { get; set; }
         public string ReferenceNo { get; set; }
         public string PatraDate { get; set; }
